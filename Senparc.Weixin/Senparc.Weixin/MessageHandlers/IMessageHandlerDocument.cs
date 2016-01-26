@@ -11,10 +11,6 @@
     修改描述：整理接口
 ----------------------------------------------------------------*/
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Xml.Linq;
 
 namespace Senparc.Weixin.MessageHandlers
@@ -38,7 +34,7 @@ namespace Senparc.Weixin.MessageHandlers
 
         /// <summary>
         /// 最后返回的ResponseDocument。
-        /// 如果是Senparc.Weixin.QY，则应当和ResponseDocument一致；如果是Senparc.Weixin.QY，则应当在ResponseDocument基础上进行加密
+        ///  如果是Senparc.Weixin.MP引用，并且未设置未加密，则应当和ResponseDocument一致；除此以外（Senparc.Weixin.QY或已加密），则应当在ResponseDocument基础上进行加密
         /// </summary>
         XDocument FinalResponseDocument { get; }
 

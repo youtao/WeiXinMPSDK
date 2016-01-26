@@ -14,11 +14,6 @@
     修改描述：添加OuterId字段
 ----------------------------------------------------------------*/
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 namespace Senparc.Weixin.MP.Entities
 {
     public class RequestMessageEvent_User_Get_Card : RequestMessageEventBase, IRequestMessageEventBase
@@ -30,6 +25,11 @@ namespace Senparc.Weixin.MP.Entities
         {
             get { return Event.user_get_card; }
         }
+
+        /// <summary>
+        /// 赠送方账号（一个OpenID），"IsGiveByFriend”为1时填写该参数
+        /// </summary>
+        public string FriendUserName { get; set; }
 
         /// <summary>
         /// 卡券ID

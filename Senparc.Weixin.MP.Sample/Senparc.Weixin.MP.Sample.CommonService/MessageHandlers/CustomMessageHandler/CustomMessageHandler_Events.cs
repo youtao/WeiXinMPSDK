@@ -103,7 +103,7 @@ Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP
                 case "SubClickRoot_Music":
                     {
                         //上传缩略图
-                        var accessToken = CommonAPIs.AccessTokenContainer.TryGetToken(appId, appSecret);
+                        var accessToken = CommonAPIs.AccessTokenContainer.TryGetAccessToken(appId, appSecret);
                         var uploadResult = AdvancedAPIs.MediaApi.UploadTemporaryMedia(accessToken, UploadMediaFileType.thumb,
                                                                      Server.GetMapPath("~/Images/Logo.jpg"));
                         //设置音乐信息
@@ -119,7 +119,7 @@ Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP
                 case "SubClickRoot_Image":
                     {
                         //上传图片
-                        var accessToken = CommonAPIs.AccessTokenContainer.TryGetToken(appId, appSecret);
+                        var accessToken = CommonAPIs.AccessTokenContainer.TryGetAccessToken(appId, appSecret);
                         var uploadResult = AdvancedAPIs.MediaApi.UploadTemporaryMedia(accessToken, UploadMediaFileType.image,
                                                                      Server.GetMapPath("~/Images/Logo.jpg"));
                         //设置图片信息
@@ -185,6 +185,20 @@ Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP
                         strongResponseMessage.Content = "您点击了【微信扫码】按钮。";
                     }
                     break;
+                case "ConditionalMenu_Male":
+                    {
+                        var strongResponseMessage = CreateResponseMessage<ResponseMessageText>();
+                        reponseMessage = strongResponseMessage;
+                        strongResponseMessage.Content = "您点击了个性化菜单按钮，您的微信性别设置为：男。";
+                    }
+                    break;
+                case "ConditionalMenu_Femle":
+                    {
+                        var strongResponseMessage = CreateResponseMessage<ResponseMessageText>();
+                        reponseMessage = strongResponseMessage;
+                        strongResponseMessage.Content = "您点击了个性化菜单按钮，您的微信性别设置为：女。";
+                    }
+                    break;
                 default:
                     {
                         var strongResponseMessage = CreateResponseMessage<ResponseMessageText>();
@@ -243,6 +257,10 @@ Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP
         {
             var responseMessage = ResponseMessageBase.CreateFromRequestMessage<ResponseMessageText>(requestMessage);
             responseMessage.Content = GetWelcomeInfo();
+            if (!string.IsNullOrEmpty(requestMessage.EventKey))
+            {
+                responseMessage.Content += "\r\n============\r\n场景值：" + requestMessage.EventKey;
+            }
             return responseMessage;
         }
 

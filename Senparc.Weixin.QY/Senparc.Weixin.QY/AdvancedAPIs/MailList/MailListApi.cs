@@ -26,14 +26,10 @@
     标签接口：http://qydev.weixin.qq.com/wiki/index.php?title=%E7%AE%A1%E7%90%86%E6%A0%87%E7%AD%BE
  */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Senparc.Weixin.QY.AdvancedAPIs.MailList;
-using Senparc.Weixin.QY.CommonAPIs;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.HttpUtility;
+using Senparc.Weixin.QY.AdvancedAPIs.MailList;
+using Senparc.Weixin.QY.CommonAPIs;
 
 namespace Senparc.Weixin.QY.AdvancedAPIs
 {
@@ -297,17 +293,16 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <param name="inviteTips">推送到微信上的提示语（只有认证号可以使用）。当使用微信推送时，该字段默认为“请关注XXX企业号”，邮件邀请时，该字段无效。</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static GetDepartmentMemberInfoResult InviteMember(string accessToken, string userId, string inviteTips = null, int timeOut = Config.TIME_OUT)
+        public static InviteMemberResult InviteMember(string accessToken, string userId, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/invite/send?access_token={0}", accessToken);
 
             var data = new
             {
                 userid = userId,
-                invite_tips = inviteTips
             };
 
-            return CommonJsonSend.Send<GetDepartmentMemberInfoResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return CommonJsonSend.Send<InviteMemberResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
 
 
